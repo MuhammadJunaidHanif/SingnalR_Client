@@ -12,7 +12,7 @@ namespace MessageConsole
             {
                 ISignalRServerService service = new SignalRServerService();
                 Console.WriteLine("\t\t\t\t\t\t\tMessages Console");
-                service.ListenMessages();
+                service.Listen_AllNotifications();
                 Console.ReadKey();
             }
 

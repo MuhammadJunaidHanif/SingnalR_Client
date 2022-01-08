@@ -8,7 +8,9 @@ namespace CommunicationServices.Interfaces
 {
     public interface ISignalRServerService
     {
-        Task<bool> BroadCastMessage(string sender, string message);
-        void ListenMessages();
+        Task<bool> BroadCastPublicMessage(string sender, string message);
+        Task<bool> RequestServerToGetSomeData(string recordId);
+        void Listen_AllNotifications();
+        void Listen_MyNotifications();
     }
 }

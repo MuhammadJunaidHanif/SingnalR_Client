@@ -13,9 +13,17 @@ namespace Alpha_Client
                 ISignalRServerService service = new SignalRServerService();
                 Console.WriteLine("\t\t\t\t\t Alpha Client (Press N/n to Close The Console)");
 
+                #region Rquest Server, server will send back message only to me
+                service.RequestServerToGetSomeData("I'm Alpha Client");
+                service.Listen_MyNotifications();
+                Console.ReadLine();
+                #endregion
+                
+                /*
+                #region Test Broadcasting Message to All clientss
                 Console.Write("Enter Your Message: ");
                 string message = Console.ReadLine();
-                service.BroadCastMessage("Alpha Client", message);
+                service.BroadCastPublicMessage("Alpha Client", message);
 
                 while (true)
                 {
@@ -24,9 +32,12 @@ namespace Alpha_Client
 
                     Console.Write("Enter Your Message: ");
                     message = Console.ReadLine();
-                    service.BroadCastMessage("tAlpha Client", message);
+                    service.BroadCastPublicMessage("tAlpha Client", message);
 
                 }
+                #endregion
+
+                */
                 Environment.Exit(0);
             }
 

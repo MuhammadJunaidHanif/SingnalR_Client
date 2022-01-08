@@ -13,21 +13,30 @@ namespace Beta_Client
                 ISignalRServerService service = new SignalRServerService();
                 Console.WriteLine("\t\t\t\t\t Beta Client (Press N/n to Close The Console)");
 
-                Console.Write("Enter Your Message: ");
-                string message = Console.ReadLine();
-                service.BroadCastMessage("Beta Client", message);
+                #region Rquest Server, server will send back message only to me
+                service.RequestServerToGetSomeData("I'm Beta Client");
+                service.Listen_MyNotifications();
+                Console.ReadLine();
+                #endregion
+
+                /*
+              #region Test Broadcasting Message to All clientss
+              Console.Write("Enter Your Message: ");
+              string message = Console.ReadLine();
+              service.BroadCastPublicMessage("Beta Client", message);
 
 
-                while (true)
-                {
-                    if (message.ToLower()=="n")
-                        break;
+              while (true)
+              {
+                  if (message.ToLower()=="n")
+                      break;
 
-                    Console.Write("Enter Your Message: ");
-                    message = Console.ReadLine();
-                    service.BroadCastMessage("Beta Client", message);
-                    
-                }
+                  Console.Write("Enter Your Message: ");
+                  message = Console.ReadLine();
+                  service.BroadCastPublicMessage("Beta Client", message);
+
+              }
+                */
                 Environment.Exit(0);
             }
 

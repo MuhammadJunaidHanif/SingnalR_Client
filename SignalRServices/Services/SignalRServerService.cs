@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunicationServices.Interfaces;
 using Microsoft.AspNetCore.SignalR.Client;
+using SignalRServices.Notification;
 
 namespace CommunicationServices.Services
 {
@@ -22,18 +23,32 @@ namespace CommunicationServices.Services
             _hubConnection.StartAsync().Wait();
         }
 
-        public async Task<bool> BroadCastMessage(string sender, string message)
+        public async Task<bool> BroadCastPublicMessage(string sender, string message)
         {
             await _hubConnection.InvokeAsync("SendMessage", sender, message);
             return true;
         }
-
-        public void ListenMessages()
+        public async Task<bool> RequestServerToGetSomeData(string recordId)
         {
-            _hubConnection.On("chat_notification", (string sender, string message) =>
+            await _hubConnection.InvokeAsync("SendMessageToCaller", recordId);
+            return true;
+        }
+
+        public void Listen_AllNotifications()
+        {
+            _hubConnection.On(NotificationTypes.All, (string sender, string message) =>
             {
                 Console.WriteLine($"{sender}:  " + message);
             });
+
+        }
+
+        public void Listen_MyNotifications()
+        {
+            _hubConnection.On(NotificationTypes.Caller, (string serverResponse) =>
+              {
+                  Console.WriteLine(serverResponse);
+              });
 
         }
     }
